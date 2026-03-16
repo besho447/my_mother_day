@@ -30,6 +30,8 @@ function App() {
   };
 
   useEffect(() => {
+    if (!visibleSections.has('counter')) return;
+
     const birthDate = new Date(CONFIG.birthDate);
     const today = new Date();
     const diffTime = Math.abs(today.getTime() - birthDate.getTime());
@@ -47,7 +49,7 @@ function App() {
     }, 20);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [visibleSections]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
