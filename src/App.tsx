@@ -188,31 +188,6 @@ function App() {
             </div>
           </div>
 
-          <div className="mt-12 space-y-6 bg-white/40 backdrop-blur-sm rounded-2xl p-8">
-            <div className="text-center">
-              <h3 className="text-2xl font-semibold text-rose-900 mb-6 flex items-center justify-center gap-2">
-                <Play className="w-6 h-6" />
-                Video Subtitles
-              </h3>
-            </div>
-
-            <div className="space-y-4">
-              <div className="p-4 bg-white/60 rounded-xl">
-                <p className="text-sm text-rose-700 font-medium mb-1">العربية</p>
-                <p className="text-lg text-gray-800" dir="rtl">شكراً يا أمي على كل شيء فعلتيه من أجلي</p>
-              </div>
-
-              <div className="p-4 bg-white/60 rounded-xl">
-                <p className="text-sm text-rose-700 font-medium mb-1">English</p>
-                <p className="text-lg text-gray-800">Thank you for everything you have done for me.</p>
-              </div>
-
-              <div className="p-4 bg-white/60 rounded-xl">
-                <p className="text-sm text-rose-700 font-medium mb-1">中文</p>
-                <p className="text-lg text-gray-800">妈妈，谢谢你为我做的一切</p>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
