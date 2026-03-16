@@ -262,7 +262,7 @@ function App() {
               className="group px-12 py-6 bg-gradient-to-r from-rose-500 to-orange-500 text-white rounded-full text-2xl font-medium shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 flex items-center gap-3 mx-auto"
             >
               <Gift className="w-8 h-8 group-hover:rotate-12 transition-transform" />
-              Open the final surprise
+              افتحي اخر مفاجأه
             </button>
           ) : (
             <div className="animate-fadeIn">
