@@ -206,7 +206,7 @@ function App() {
           <div className="space-y-8">
             <div className="p-8 bg-white/50 backdrop-blur-sm rounded-3xl shadow-xl">
               <p className="text-3xl md:text-4xl text-gray-800 leading-relaxed font-serif" dir="rtl">
-                شكراً يا أمي على كل شيء فعلتيه من أجلي
+                شكراً يا ماما على حاجه عملتيها عشاني
               </p>
             </div>
 
