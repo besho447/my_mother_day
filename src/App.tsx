@@ -1,24 +1,30 @@
 import { useState, useEffect, useRef } from 'react';
 import { Heart, Play, Gift } from 'lucide-react';
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL || '',
+  import.meta.env.VITE_SUPABASE_ANON_KEY || ''
+);
 
 const CONFIG = {
   birthDate: '2005-07-02',
-
-  photos: [
-    { url: 'https://drive.google.com/file/d/1rq3D5QtV4kmYCG-M4dljYPIGsEGtGKrK/view?usp=drive_link', caption: 'My first steps' },
-    { url: 'https://drive.google.com/file/d/1rq3D5QtV4kmYCG-M4dljYPIGsEGtGKrK/view?usp=drive_link', caption: 'Learning together' },
-    { url: 'https://images.pexels.com/photos/3756042/pexels-photo-3756042.jpeg?auto=compress&cs=tinysrgb&w=800', caption: 'Happy moments' },
-    { url: 'https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=800', caption: 'Always by my side' },
-    { url: 'https://github.com/besho447/my_mother_day/blob/main/IMG_20260317_131004.jpg', caption: 'Forever grateful' },
-  ],
-
-  videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
 };
+
+interface Media {
+  id: string;
+  type: 'photo' | 'video';
+  url: string;
+  caption: string | null;
+}
 
 function App() {
   const [daysCounter, setDaysCounter] = useState(0);
   const [showSurprise, setShowSurprise] = useState(false);
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
+  const [photos, setPhotos] = useState<Media[]>([]);
+  const [videoUrl, setVideoUrl] = useState<string>('');
+  const [loading, setLoading] = useState(true);
 
   const sectionRefs = {
     hero: useRef<HTMLDivElement>(null),
@@ -28,6 +34,31 @@ function App() {
     message: useRef<HTMLDivElement>(null),
     surprise: useRef<HTMLDivElement>(null),
   };
+
+  useEffect(() => {
+    const fetchMedia = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('media')
+          .select('*')
+          .order('created_at', { ascending: true });
+
+        if (error) throw error;
+
+        const photosData = data?.filter((item) => item.type === 'photo') || [];
+        const videoData = data?.find((item) => item.type === 'video');
+
+        setPhotos(photosData);
+        if (videoData) setVideoUrl(videoData.url);
+      } catch (error) {
+        console.error('Error fetching media:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMedia();
+  }, []);
 
   useEffect(() => {
     if (!visibleSections.has('counter')) return;
@@ -119,26 +150,36 @@ function App() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {CONFIG.photos.map((photo, index) => (
-              <div
-                key={index}
-                className={`group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 ${
-                  visibleSections.has('memory') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                <img
-                  src={photo.url}
-                  alt={photo.caption}
-                  className="w-full h-80 object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-rose-900/80 via-rose-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <p className="text-white text-lg font-medium">{photo.caption}</p>
+            {loading ? (
+              <div className="col-span-full text-center py-12">
+                <p className="text-rose-800 text-lg">Loading memories...</p>
+              </div>
+            ) : photos.length > 0 ? (
+              photos.map((photo, index) => (
+                <div
+                  key={photo.id}
+                  className={`group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:scale-105 ${
+                    visibleSections.has('memory') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ transitionDelay: `${index * 100}ms` }}
+                >
+                  <img
+                    src={photo.url}
+                    alt={photo.caption || 'Memory'}
+                    className="w-full h-80 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-rose-900/80 via-rose-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute bottom-0 left-0 right-0 p-6">
+                      <p className="text-white text-lg font-medium">{photo.caption}</p>
+                    </div>
                   </div>
                 </div>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12">
+                <p className="text-rose-800 text-lg">No memories yet. Add some photos!</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>
@@ -180,13 +221,19 @@ function App() {
 
           <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-white/60 backdrop-blur-sm p-4">
             <div className="aspect-video rounded-2xl overflow-hidden bg-gray-900 flex items-center justify-center">
-              <iframe
-                src={CONFIG.videoUrl}
-                title="Video Message"
-                className="w-full h-full"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
+              {loading ? (
+                <p className="text-white">Loading video...</p>
+              ) : videoUrl ? (
+                <iframe
+                  src={videoUrl}
+                  title="Video Message"
+                  className="w-full h-full"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              ) : (
+                <p className="text-white text-xl">No video uploaded yet</p>
+              )}
             </div>
           </div>
 
