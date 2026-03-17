@@ -5,7 +5,7 @@ const CONFIG = {
   birthDate: '2005-07-02',
 
   photos: [
-    { url: 'https://drive.google.com/file/d/1jCaNOS2g678nzSHuZ5lq8KBCX_-cBjM_/view?usp=drive_link', caption: 'My first steps' },
+    { url: 'https://github.com/besho447/my_mother_day/blob/main/IMG_20260317_131004.jpg', caption: 'My first steps' },
     { url: 'https://drive.google.com/file/d/1rq3D5QtV4kmYCG-M4dljYPIGsEGtGKrK/view?usp=drive_link', caption: 'Learning together' },
     { url: 'https://images.pexels.com/photos/3756042/pexels-photo-3756042.jpeg?auto=compress&cs=tinysrgb&w=800', caption: 'Happy moments' },
     { url: 'https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=800', caption: 'Always by my side' },
