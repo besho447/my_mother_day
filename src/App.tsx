@@ -6,7 +6,7 @@ const CONFIG = {
 
   photos: [
     { url: 'https://drive.google.com/file/d/1jCaNOS2g678nzSHuZ5lq8KBCX_-cBjM_/view?usp=drive_link', caption: 'My first steps' },
-    { url: 'https://images.pexels.com/photos/1738986/pexels-photo-1738986.jpeg?auto=compress&cs=tinysrgb&w=800', caption: 'Learning together' },
+    { url: 'https://drive.google.com/file/d/1rq3D5QtV4kmYCG-M4dljYPIGsEGtGKrK/view?usp=drive_link', caption: 'Learning together' },
     { url: 'https://images.pexels.com/photos/3756042/pexels-photo-3756042.jpeg?auto=compress&cs=tinysrgb&w=800', caption: 'Happy moments' },
     { url: 'https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=800', caption: 'Always by my side' },
     { url: 'https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=800', caption: 'Forever grateful' },
