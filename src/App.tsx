@@ -9,7 +9,7 @@ const CONFIG = {
     { url: 'https://drive.google.com/file/d/1rq3D5QtV4kmYCG-M4dljYPIGsEGtGKrK/view?usp=drive_link', caption: 'Learning together' },
     { url: 'https://images.pexels.com/photos/3756042/pexels-photo-3756042.jpeg?auto=compress&cs=tinysrgb&w=800', caption: 'Happy moments' },
     { url: 'https://images.pexels.com/photos/4393021/pexels-photo-4393021.jpeg?auto=compress&cs=tinysrgb&w=800', caption: 'Always by my side' },
-    { url: 'https://images.pexels.com/photos/3807517/pexels-photo-3807517.jpeg?auto=compress&cs=tinysrgb&w=800', caption: 'Forever grateful' },
+    { url: 'https://github.com/besho447/my_mother_day/blob/main/IMG_20260317_131004.jpg', caption: 'Forever grateful' },
   ],
 
   videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
